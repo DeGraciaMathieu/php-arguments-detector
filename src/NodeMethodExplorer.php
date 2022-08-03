@@ -9,7 +9,7 @@ use DeGraciaMathieu\PhpArgsDetector\Method;
 
 class NodeMethodExplorer
 {
-    private SplFileInfo $file;
+    protected $file;
 
     public function __construct(SplFileInfo $file)
     {

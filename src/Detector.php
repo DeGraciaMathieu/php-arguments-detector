@@ -7,7 +7,7 @@ use PhpParser\ParserFactory;
 
 class Detector
 {
-    protected ParserFactory $parserFactory;
+    protected $parserFactory;
 
     public function __construct()
     {

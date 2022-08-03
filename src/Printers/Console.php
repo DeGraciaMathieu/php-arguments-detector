@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Console
 {
-    protected array $options;
+    protected $options;
 
     public function __construct(array $options)
     {

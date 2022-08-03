@@ -8,9 +8,8 @@ use DeGraciaMathieu\PhpArgsDetector\NodeMethodExplorer;
 
 class FileVisitor extends NodeVisitorAbstract
 {
-    private NodeMethodExplorer $nodeExplorer;
-
-    private array $methods = [];
+    protected $nodeExplorer;
+    protected $methods = [];
 
     public function __construct(NodeMethodExplorer $nodeExplorer)
     {
