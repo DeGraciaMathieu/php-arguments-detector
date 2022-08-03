@@ -57,6 +57,50 @@ class InspectCommand extends Command
             return self::SUCCESS;
         }
 
+        $methods = $this->diveIntoNodes($output, $finder);
+
+        $output->writeln(PHP_EOL);
+
+        $printer = new Console([
+            'without_constructor' => $input->getOption('without-constructor'),
+            'min' => $input->getOption('min'),
+            'max' => $input->getOption('max'),
+        ]);
+
+        $printer->printData($output, $methods);
+
+        return 1;
+    }
+
+    protected function createFinder(InputInterface $input): Finder
+    {
+        $finder = new Finder();
+
+        $directories = $input->getArgument('directories');
+
+        $finder->files()->in($directories);
+
+        return $finder;
+    }
+
+    protected function noFilesFound(Finder $finder): bool
+    {
+        $filesCount = $finder->count();
+
+        return $filesCount === 0;
+    }
+
+    protected function startProgressBar(OutputInterface $output, Finder $finder)
+    {
+        $this->progressBar = new ProgressBar($output, $finder->count());
+
+        $this->progressBar->start();
+    }
+
+    protected function diveIntoNodes(OutputInterface $output, Finder $finder): array
+    {
+        $this->startProgressBar($output, $finder);
+
         $methods = [];
         $detector = new Detector();
 
@@ -77,34 +121,12 @@ class InspectCommand extends Command
             foreach ($fileVisitor->getMethods() as $method) {
                 $methods[] = $method;
             }
+
+            $this->progressBar->advance();
         }
 
-        $printer = new Console([
-            'without_constructor' => $input->getOption('without-constructor'),
-            'min' => $input->getOption('min'),
-            'max' => $input->getOption('max'),
-        ]);
+        $this->progressBar->finish();
 
-        $printer->printData($output, $methods);
-
-        return 1;
-    }
-
-    protected function createFinder(InputInterface $input): Finder
-    {
-        $finder = new Finder();
-
-        $finder->files()->in(
-            $input->getArgument('directories'),
-        );
-
-        return $finder;
-    }
-
-    protected function noFilesFound(Finder $finder): bool
-    {
-        $filesCount = $finder->count();
-
-        return $filesCount === 0;
+        return $methods;
     }
 }
