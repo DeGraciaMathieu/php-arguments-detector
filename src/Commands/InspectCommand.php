@@ -55,6 +55,8 @@ class InspectCommand extends Command
     
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $output->writeln('❀ PHP Arguments Detector ❀');
+
         $finder = $this->createFinder($input);
 
         if ($this->noFilesFound($finder)) {
@@ -133,7 +135,7 @@ class InspectCommand extends Command
                 }
 
             } catch (Error $e) {
-                $output->writeln($e->getRawMessage());
+                //
             }
 
             $this->progressBar->advance();
