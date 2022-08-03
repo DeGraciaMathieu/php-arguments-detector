@@ -1,4 +1,7 @@
 [![build](https://github.com/DeGraciaMathieu/php-arguments-detector/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/DeGraciaMathieu/php-arguments-detector/actions/workflows/build.yml)
+[![packagist](https://img.shields.io/packagist/v/DeGraciaMathieu/php-arguments-detector)]([https://github.com/DeGraciaMathieu/php-arguments-detector/actions/workflows/build.yml](https://img.shields.io/packagist/v/DeGraciaMathieu/php-arguments-detector))
+[![packagist](https://img.shields.io/badge/php%20versions-7.3%20%7C%207.4%20%7C%20%5E8-blue)]([https://img.shields.io/badge/php%20versions-7.3%20%7C%207.4%20%7C%20%5E8-blue](https://img.shields.io/badge/php%20versions-7.3%20%7C%207.4%20%7C%20%5E8-blue))
+
 # php arguments detector
 > The ideal number of arguments for a function is zero. ~ Robert C. Martin
 
