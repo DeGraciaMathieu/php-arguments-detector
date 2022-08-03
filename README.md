@@ -12,18 +12,28 @@ composer require degraciamathieu/php-arguments-detector
 ```
 vendor/bin/phpargsdetector inspect {folder} {--without-constructor} {--min=} {--max=}
 ```
-## Example
+## Examples
 ```
 vendor/bin/phpargsdetector inspect app/Http
 
-+----------------------------------------------------------+------------+-----------+
-| Files                                                    | Methods    | Arguments |
-+----------------------------------------------------------+------------+-----------+
-| /var/www/app/Http/Middleware/Authenticate.php            | redirectTo | 1         |
-| /var/www/app/Http/Middleware/HandleInertiaRequests.php   | version    | 1         |
-| /var/www/app/Http/Middleware/HandleInertiaRequests.php   | share      | 1         |
-| /var/www/app/Http/Middleware/RedirectIfAuthenticated.php | handle     | 3         |
-| /var/www/app/Http/Middleware/TrustHosts.php              | hosts      | 0         |
-+----------------------------------------------------------+------------+-----------+
++----------------------------------------------------------+-------------+-----------+
+| Files                                                    | Methods     | Arguments |
++----------------------------------------------------------+-------------+-----------+
+| /var/www/app/Http/Middleware/Authenticate.php            | redirectTo  | 1         |
+| /var/www/app/Http/Middleware/HandleInertiaRequests.php   | version     | 1         |
+| /var/www/app/Http/Middleware/HandleInertiaRequests.php   | share       | 1         |
+| /var/www/app/Http/Middleware/RedirectIfAuthenticated.php | handle      | 3         |
+| /var/www/app/Http/Middleware/TrustHosts.php              | __construct | 3         |
++----------------------------------------------------------+-------------+-----------+
 Total of methods : 5
+```
+```
+vendor/bin/phpargsdetector inspect app/Http --without-constructor --min=3
+
++----------------------------------------------------------+-------------+-----------+
+| Files                                                    | Methods     | Arguments |
++----------------------------------------------------------+-------------+-----------+
+| /var/www/app/Http/Middleware/RedirectIfAuthenticated.php | handle      | 3         |
++----------------------------------------------------------+-------------+-----------+
+Total of methods : 1
 ```
