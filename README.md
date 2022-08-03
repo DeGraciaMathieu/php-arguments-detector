@@ -1,5 +1,8 @@
+[![build](https://github.com/DeGraciaMathieu/php-arguments-detector/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/DeGraciaMathieu/php-arguments-detector/actions/workflows/build.yml)
 # php arguments detector
-> The ideal number of arguments for a function is zero. Arguments are hard, they take a lot of conceptual power. ~ Robert C. Martin
+> The ideal number of arguments for a function is zero. ~ Robert C. Martin
+
+Keep control over the complexity of your methods by checking that they do not have too many arguments with this package.
 ## Installation
 Requires >= PHP 7.4
 ```
