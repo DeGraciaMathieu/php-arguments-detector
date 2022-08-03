@@ -6,26 +6,34 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class Method
 {
-    public function __construct(SplFileInfo $file, string $name, int $line, $parameters)
+    protected $path;
+    protected $name;
+    protected $arguments;
+
+    public function __construct(string $path, string $name, array $arguments)
     {
-        $this->file = $file;
+        $this->path = $path;
         $this->name = $name;
-        $this->line = $line;
-        $this->parameters = $parameters;
+        $this->arguments = $arguments;
     }
 
-    public function getFile(): SplFileInfo
+    public function getPath(): string
     {
-        return $this->file;
+        return $this->path;
     }
 
-    public function getLine(): int
+    public function getName(): string
     {
-        return $this->line;
+        return $this->name;
     }
 
-    public function getParameters()
+    public function getArguments(): array
     {
-        return $this->parameters;
+        return $this->arguments;
+    }
+
+    public function isConstructor(): bool
+    {
+        return $this->name === '__construct';
     }
 }

@@ -37,11 +37,11 @@ class Console
 
         foreach ($methods as $method) {
 
-            if ($this->options['without_constructor'] && $method->name === '__construct') {
+            if ($this->options['without_constructor'] && $method->isConstructor()) {
                 continue;
             }
 
-            $count = count($method->parameters);
+            $count = count($method->getArguments());
 
             if ($this->options['min'] && $count < (int) $this->options['min']) {
                 continue;
@@ -51,11 +51,11 @@ class Console
                 continue;
             }
 
-            $filename = $method->file->getRealPath();
+            $path = $method->getPath();
 
             $rows[] = [
-                $filename, 
-                $method->name, 
+                $path, 
+                $method->getName(), 
                 $count,
             ];
         }
