@@ -1,0 +1,12 @@
+version: '3'
+
+networks:
+  app:
+    driver: bridge
+
+services:
+  app:
+    build:
+      context: ./docker/app
+    volumes:
+      - '.:/var/www'
