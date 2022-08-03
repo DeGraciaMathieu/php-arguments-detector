@@ -2,6 +2,7 @@
 
 namespace DeGraciaMathieu\PhpArgsDetector\Commands;
 
+use PhpParser\Error;
 use PhpParser\NodeTraverser;
 use Symfony\Component\Finder\Finder;
 use DeGraciaMathieu\PhpArgsDetector\Detector;
@@ -113,20 +114,26 @@ class InspectCommand extends Command
 
         foreach ($finder as $file) {
 
-            $tokens = $detector->parse($file);
+            try {
 
-            $fileVisitor = new FileVisitor(
-                new NodeMethodExplorer($file),
-            );
+                $tokens = $detector->parse($file);
 
-            $traverser = new NodeTraverser();
+                $fileVisitor = new FileVisitor(
+                    new NodeMethodExplorer($file),
+                );
 
-            $traverser->addVisitor($fileVisitor);
+                $traverser = new NodeTraverser();
 
-            $traverser->traverse($tokens);
+                $traverser->addVisitor($fileVisitor);
 
-            foreach ($fileVisitor->getMethods() as $method) {
-                $methods[] = $method;
+                $traverser->traverse($tokens);
+
+                foreach ($fileVisitor->getMethods() as $method) {
+                    $methods[] = $method;
+                }
+
+            } catch (Error $e) {
+                $output->writeln($e->getRawMessage());
             }
 
             $this->progressBar->advance();
