@@ -11,32 +11,41 @@ Requires >= PHP 7.3
 ```
 composer require degraciamathieu/php-arguments-detector
 ```
-## Basic usage
+## Usage
 ```
-vendor/bin/phpargsdetector inspect {folder} {--without-constructor} {--min=} {--max=}
+vendor/bin/phpargsdetector inspect {folder} {--without-constructor} {--min=} {--max=} {--limit=}
 ```
 ## Examples
 ```
-vendor/bin/phpargsdetector inspect app/Http
+vendor/bin/phpargsdetector inspect app/Services/Saml/
 
-+----------------------------------------------------------+-------------+-----------+
-| Files                                                    | Methods     | Arguments |
-+----------------------------------------------------------+-------------+-----------+
-| /var/www/app/Http/Middleware/Authenticate.php            | redirectTo  | 1         |
-| /var/www/app/Http/Middleware/HandleInertiaRequests.php   | version     | 1         |
-| /var/www/app/Http/Middleware/HandleInertiaRequests.php   | share       | 1         |
-| /var/www/app/Http/Middleware/RedirectIfAuthenticated.php | handle      | 3         |
-| /var/www/app/Http/Middleware/TrustHosts.php              | __construct | 3         |
-+----------------------------------------------------------+-------------+-----------+
++------------------------------------------+------------------+-----------+
+| Files                                    | Methods          | Arguments |
++------------------------------------------+------------------+-----------+
+| app/Services/Saml/SamlMessageFactory.php | __construct      | 2         |
+| app/Services/Saml/SamlMessageFactory.php | makeSamlResponse | 2         |
+| app/Services/Saml/SamlSecurity.php       | checkSignature   | 2         |
+| app/Services/Saml/SamlIssuer.php         | find             | 1         |
+| app/Services/Saml/SamlKeeper.php         | keep             | 1         |
+| app/Services/Saml/SamlMessageFactory.php | addAttributes    | 1         |
+| app/Services/Saml/SamlMessageFactory.php | sign             | 1         |
+| app/Services/Saml/SamlResponder.php      | launch           | 1         |
+| app/Services/Saml/SamlKeeper.php         | has              | 0         |
+| app/Services/Saml/SamlKeeper.php         | retrieve         | 0         |
++------------------------------------------+------------------+-----------+
+Total of methods : 10
+```
+```
+vendor/bin/phpargsdetector inspect app/ --limit=5 --min=2 --without-constructor
+
++-------------------------------------------------+--------------------+-----------+
+| Files                                           | Methods            | Arguments |
++-------------------------------------------------+--------------------+-----------+
+| app/Http/Middleware/RedirectIfAuthenticated.php | handle             | 3         |
+| app/Http/Controllers/IssuerController.php       | update             | 2         |
+| app/Http/Controllers/RestrictionController.php  | update             | 2         |
+| app/Http/Controllers/SamlController.php         | launchSamlResponse | 2         |
+| app/Services/Auth/LdapProvider.php              | retrieveByToken    | 2         |
++-------------------------------------------------+--------------------+-----------+
 Total of methods : 5
-```
-```
-vendor/bin/phpargsdetector inspect app/Http --without-constructor --min=3
-
-+----------------------------------------------------------+-------------+-----------+
-| Files                                                    | Methods     | Arguments |
-+----------------------------------------------------------+-------------+-----------+
-| /var/www/app/Http/Middleware/RedirectIfAuthenticated.php | handle      | 3         |
-+----------------------------------------------------------+-------------+-----------+
-Total of methods : 1
 ```
