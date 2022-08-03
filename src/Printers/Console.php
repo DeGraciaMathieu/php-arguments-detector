@@ -2,6 +2,7 @@
 
 namespace DeGraciaMathieu\PhpArgsDetector\Printers;
 
+use DeGraciaMathieu\PhpArgsDetector\Method;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -37,17 +38,13 @@ class Console
 
         foreach ($methods as $method) {
 
-            if ($this->options['without_constructor'] && $method->isConstructor()) {
+            if ($this->constructorIsUnwelcome($method)) {
                 continue;
             }
 
             $count = count($method->getArguments());
 
-            if ($this->options['min'] && $count < (int) $this->options['min']) {
-                continue;
-            }
-
-            if ($this->options['max'] && $count > (int) $this->options['max']) {
+            if ($this->outsideThresholds($count)) {
                 continue;
             }
 
@@ -61,6 +58,29 @@ class Console
         }
 
         return $rows;
+    }
+
+    protected function constructorIsUnwelcome(Method $method): bool
+    {
+        return $this->options['without_constructor'] && $method->isConstructor();
+    }
+
+    protected function outsideThresholds(int $count): bool
+    {
+        return $this->belowTheThreshold($count) 
+            || $this->aboveTheThreshold($count);
+    }
+
+    protected function belowTheThreshold(int $count): bool
+    {
+        return $this->options['min'] 
+            && $count < (int) $this->options['min'];
+    }
+
+    protected function aboveTheThreshold(int $count): bool
+    {
+        return $this->options['max'] 
+            && $count > (int) $this->options['max'];
     }
 
     protected function printTable(OutputInterface $output, array $rows): void
