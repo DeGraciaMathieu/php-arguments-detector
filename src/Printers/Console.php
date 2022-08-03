@@ -25,6 +25,12 @@ class Console
             return;
         }
 
+        $rows = $this->sortRows($rows);
+
+        if ($this->options['limit']) {
+            $rows = $this->cutRows($rows);
+        }
+
         $this->printTable($output, $rows);
 
         $output->writeln('<info>Total of methods : ' . count($rows) . '</info>');
@@ -81,6 +87,27 @@ class Console
     {
         return $this->options['max'] 
             && $count > (int) $this->options['max'];
+    }
+
+    protected function sortRows(array $rows): array
+    {
+        uasort($rows, function ($a, $b) {
+
+            if ($a[2] == $b[2]) {
+                return 0;
+            }
+
+            return ($a[2] < $b[2]) ? 1 : -1;
+        });
+
+        return $rows;
+    }
+
+    protected function cutRows(array $rows): array
+    {
+        $limit = $this->options['limit'];
+
+        return array_slice($rows, 0, $limit);
     }
 
     protected function printTable(OutputInterface $output, array $rows): void

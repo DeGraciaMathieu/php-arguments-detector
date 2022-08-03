@@ -40,6 +40,12 @@ class InspectCommand extends Command
                 '',
             )
             ->addOption(
+                'limit',
+                null,
+                InputOption::VALUE_REQUIRED,
+                '',
+            )
+            ->addOption(
                 'without-constructor',
                 null,
                 InputOption::VALUE_NONE,
@@ -65,6 +71,7 @@ class InspectCommand extends Command
             'without_constructor' => $input->getOption('without-constructor'),
             'min' => $input->getOption('min'),
             'max' => $input->getOption('max'),
+            'limit' => $input->getOption('limit'),
         ]);
 
         $printer->printData($output, $methods);
