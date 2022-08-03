@@ -1,4 +1,5 @@
 # php arguments detector
+> The ideal number of arguments for a function is zero. ~ Robert C. Martin
 ## Installation
 Requires >= PHP 7.4
 ```
