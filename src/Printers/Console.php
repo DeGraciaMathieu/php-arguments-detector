@@ -48,7 +48,7 @@ class Console
                 continue;
             }
 
-            $count = count($method->getArguments());
+            $count = $method->countArguments();
 
             if ($this->outsideThresholds($count)) {
                 continue;
@@ -60,6 +60,7 @@ class Console
                 $path, 
                 $method->getName(), 
                 $count,
+                $method->getWeight(),
             ];
         }
 
@@ -91,13 +92,15 @@ class Console
 
     protected function sortRows(array $rows): array
     {
-        uasort($rows, function ($a, $b) {
+        $sort = $this->options['sort_by_weight'] ? 3 : 2;
 
-            if ($a[2] == $b[2]) {
+        uasort($rows, function ($a, $b) use ($sort) {
+
+            if ($a[$sort] == $b[$sort]) {
                 return 0;
             }
 
-            return ($a[2] < $b[2]) ? 1 : -1;
+            return ($a[$sort] < $b[$sort]) ? 1 : -1;
         });
 
         return $rows;
@@ -115,7 +118,7 @@ class Console
         $table = new Table($output);
 
         $table
-            ->setHeaders(['Files', 'Methods', 'Arguments'])
+            ->setHeaders(['Files', 'Methods', 'Arguments', 'Weight'])
             ->setRows($rows);
 
         $table->render();

@@ -25,6 +25,7 @@ class NodeMethodExplorer
         yield new Method(
             $this->file->getPathname(), 
             $node->name->name, 
+            $node->getEndLine() - $node->getStartLine(), 
             $node->getParams(),
         );
     }

@@ -8,12 +8,14 @@ class Method
 {
     protected $path;
     protected $name;
+    protected $line;
     protected $arguments;
 
-    public function __construct(string $path, string $name, array $arguments)
+    public function __construct(string $path, string $name, int $line, array $arguments)
     {
         $this->path = $path;
         $this->name = $name;
+        $this->line = $line;
         $this->arguments = $arguments;
     }
 
@@ -27,9 +29,14 @@ class Method
         return $this->name;
     }
 
-    public function getArguments(): array
+    public function countArguments(): int
     {
-        return $this->arguments;
+        return count($this->arguments);
+    }
+
+    public function getWeight(): int
+    {
+        return $this->line * $this->countArguments();
     }
 
     public function isConstructor(): bool

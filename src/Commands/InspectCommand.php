@@ -50,6 +50,11 @@ class InspectCommand extends Command
                 'without-constructor',
                 null,
                 InputOption::VALUE_NONE,
+            )
+            ->addOption(
+                'sort-by-weight',
+                null,
+                InputOption::VALUE_NONE,
             );
     }
     
@@ -72,6 +77,7 @@ class InspectCommand extends Command
 
         $printer = new Console([
             'without_constructor' => $input->getOption('without-constructor'),
+            'sort_by_weight' => $input->getOption('sort-by-weight'),
             'min' => $input->getOption('min'),
             'max' => $input->getOption('max'),
             'limit' => $input->getOption('limit'),
