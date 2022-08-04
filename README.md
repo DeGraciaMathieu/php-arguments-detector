@@ -13,7 +13,7 @@ composer require degraciamathieu/php-arguments-detector
 ```
 ## Usage
 ```
-vendor/bin/phpargsdetector inspect {folder} {--min=} {--max=} {--limit=} {--without-constructor} {--sort-by-weight}
+vendor/bin/phpargsdetector inspect {folder}
 ```
 ## Options
 | options               | description |
