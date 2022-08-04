@@ -20,7 +20,7 @@ vendor/bin/phpargsdetector inspect {folder} {--min=} {--max=} {--limit=} {--with
 |-----------------------|-------------|
 | --min=                | Ignore methods with less than --min arguments.         |
 | --max=                | Ignore methods with more than --max arguments.         |
-| --limit=              | Method limit display by command.         |
+| --limit=              | Number of methods displayed.         |
 | --without-constructor | Ignore method constructors from detection.         |
 | --sort-by-weight      | Sort the results by the weight of methods.         |
 ## Examples
