@@ -29,6 +29,11 @@ class Method
         return $this->name;
     }
 
+    public function getLine(): int
+    {
+        return $this->line - 2;
+    }
+
     public function countArguments(): int
     {
         return count($this->arguments);
@@ -36,7 +41,7 @@ class Method
 
     public function getWeight(): int
     {
-        return $this->line * $this->countArguments();
+        return $this->getLine() * $this->countArguments();
     }
 
     public function isConstructor(): bool
