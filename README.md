@@ -13,8 +13,16 @@ composer require degraciamathieu/php-arguments-detector
 ```
 ## Usage
 ```
-vendor/bin/phpargsdetector inspect {folder} {--without-constructor} {--min=} {--max=} {--limit=}
+vendor/bin/phpargsdetector inspect {folder} {--min=} {--max=} {--limit=} {--without-constructor} {--sort-by-weight}
 ```
+## Options
+| options               | description |
+|-----------------------|-------------|
+| --min=                | Ignore methods with less than --min arguments.         |
+| --max=                | Ignore methods with more than --max arguments.         |
+| --limit=              | Method limit display by command.         |
+| --without-constructor | Ignore method constructors from detection.         |
+| --sort-by-weight      | Sort the results by the weight of methods.         |
 ## Examples
 ```
 vendor/bin/phpargsdetector inspect app/Services/Saml/
@@ -47,3 +55,22 @@ vendor/bin/phpargsdetector inspect app/ --limit=3 --min=2 --without-constructor
 +-------------------------------------------------+--------------------+-----------+
 Total of methods : 3
 ```
+## Weight
+The weight is the number of arguments multiplied by the number of lines of the method.
+
+The weight of the `foo` method is 10 : 2 arguments * 5 lines.
+
+```php
+class Bar {
+    public function foo($a, $b)
+    {
+        if ($a) {
+           //
+        }
+
+        return $b;
+    }
+}
+```
+
+You can use it as a complexity indicator.
