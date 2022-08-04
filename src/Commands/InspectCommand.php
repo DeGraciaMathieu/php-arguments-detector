@@ -101,7 +101,7 @@ class InspectCommand extends Command
 
         $printer->printData($output, $methods);
 
-        return 1;
+        return self::SUCCESS;
     }
 
     protected function createFinder(InputInterface $input): Finder
@@ -122,7 +122,7 @@ class InspectCommand extends Command
         return $filesCount === 0;
     }
 
-    protected function startProgressBar(OutputInterface $output, Finder $finder)
+    protected function startProgressBar(OutputInterface $output, Finder $finder): void
     {
         $this->progressBar = new ProgressBar($output, $finder->count());
 
