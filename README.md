@@ -9,7 +9,7 @@ Keep control over the complexity of your methods by checking that they do not ha
 ## Installation
 Requires >= PHP 7.3
 ```
-composer require degraciamathieu/php-arguments-detector
+composer require degraciamathieu/php-arguments-detector --dev
 ```
 ## Usage
 ```
