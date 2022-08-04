@@ -36,16 +36,14 @@ vendor/bin/phpargsdetector inspect app/Services/Saml/
 Total of methods : 10
 ```
 ```
-vendor/bin/phpargsdetector inspect app/ --limit=5 --min=2 --without-constructor
+vendor/bin/phpargsdetector inspect app/ --limit=3 --min=2 --without-constructor
 
 +-------------------------------------------------+--------------------+-----------+
 | Files                                           | Methods            | Arguments |
 +-------------------------------------------------+--------------------+-----------+
-| app/Http/Middleware/RedirectIfAuthenticated.php | handle             | 3         |
-| app/Http/Controllers/IssuerController.php       | update             | 2         |
-| app/Http/Controllers/RestrictionController.php  | update             | 2         |
+| app/Http/Controllers/IssuerController.php       | update             | 5         |
+| app/Http/Controllers/RestrictionController.php  | update             | 4         |
 | app/Http/Controllers/SamlController.php         | launchSamlResponse | 2         |
-| app/Services/Auth/LdapProvider.php              | retrieveByToken    | 2         |
 +-------------------------------------------------+--------------------+-----------+
-Total of methods : 5
+Total of methods : 3
 ```
