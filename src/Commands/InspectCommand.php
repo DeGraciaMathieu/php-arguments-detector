@@ -29,13 +29,25 @@ class InspectCommand extends Command
                 'Directories to analyze',
             )
             ->addOption(
-                'min',
+                'min-args',
                 null,
                 InputOption::VALUE_REQUIRED,
                 '',
             )
             ->addOption(
-                'max',
+                'max-args',
+                null,
+                InputOption::VALUE_REQUIRED,
+                '',
+            )
+            ->addOption(
+                'min-weight',
+                null,
+                InputOption::VALUE_REQUIRED,
+                '',
+            )
+            ->addOption(
+                'max-weight',
                 null,
                 InputOption::VALUE_REQUIRED,
                 '',
@@ -75,13 +87,17 @@ class InspectCommand extends Command
 
         $output->writeln(PHP_EOL);
 
-        $printer = new Console([
-            'without_constructor' => $input->getOption('without-constructor'),
-            'sort_by_weight' => $input->getOption('sort-by-weight'),
-            'min' => $input->getOption('min'),
-            'max' => $input->getOption('max'),
-            'limit' => $input->getOption('limit'),
+        $options = $input->getOptions([
+            'without-constructor',
+            'sort-by-weight',
+            'min-args',
+            'max-args',
+            'min-weight',
+            'max-weight',
+            'limit',
         ]);
+
+        $printer = new Console($options);
 
         $printer->printData($output, $methods);
 

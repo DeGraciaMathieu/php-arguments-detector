@@ -48,18 +48,14 @@ class Console
                 continue;
             }
 
-            $count = $method->countArguments();
-
-            if ($this->outsideThresholds($count)) {
+            if ($this->outsideThresholds($method)) {
                 continue;
             }
 
-            $path = $method->getPath();
-
             $rows[] = [
-                $path, 
+                $method->getPath(), 
                 $method->getName(), 
-                $count,
+                $method->countArguments(),
                 $method->getWeight(),
             ];
         }
@@ -69,30 +65,48 @@ class Console
 
     protected function constructorIsUnwelcome(Method $method): bool
     {
-        return $this->options['without_constructor'] && $method->isConstructor();
+        return $this->options['without-constructor'] && $method->isConstructor();
     }
 
-    protected function outsideThresholds(int $count): bool
+    protected function outsideThresholds(Method $method): bool
     {
-        return $this->belowTheThreshold($count) 
-            || $this->aboveTheThreshold($count);
+        return $this->outsideArgsThresholds($method) 
+            || $this->outsideWeightThresholds($method);
     }
 
-    protected function belowTheThreshold(int $count): bool
+    protected function outsideArgsThresholds(Method $method): bool
     {
-        return $this->options['min'] 
-            && $count < (int) $this->options['min'];
+        $count = $method->countArguments();
+
+        if ($this->options['min-args'] && $count < (int) $this->options['min-args']) {
+            return true;
+        }
+
+        if ($this->options['max-args'] && $count > (int) $this->options['max-args']) {
+            return true;
+        }
+
+        return false;
     }
 
-    protected function aboveTheThreshold(int $count): bool
+    protected function outsideWeightThresholds(Method $method): bool
     {
-        return $this->options['max'] 
-            && $count > (int) $this->options['max'];
+        $weight = $method->getWeight();
+
+        if ($this->options['min-weight'] && $weight < (int) $this->options['min-weight']) {
+            return true;
+        }
+
+        if ($this->options['max-weight'] && $weight > (int) $this->options['max-weight']) {
+            return true;
+        }
+
+        return false;
     }
 
     protected function sortRows(array $rows): array
     {
-        $sort = $this->options['sort_by_weight'] ? 3 : 2;
+        $sort = $this->options['sort-by-weight'] ? 3 : 2;
 
         uasort($rows, function ($a, $b) use ($sort) {
 
