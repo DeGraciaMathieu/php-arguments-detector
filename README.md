@@ -18,8 +18,10 @@ vendor/bin/phpargsdetector inspect {folder}
 ## Options
 | options               | description |
 |-----------------------|-------------|
-| --min=                | Ignore methods with less than --min arguments.         |
-| --max=                | Ignore methods with more than --max arguments.         |
+| --min-args=                | Ignore methods with less than --min-args arguments.         |
+| --max-args=                | Ignore methods with more than --max-args arguments.         |
+| --min-weight=                | Ignore methods with less than --min-weight weight.         |
+| --max-weight=                | Ignore methods with more than --max-weight weight.         |
 | --limit=              | Number of methods displayed.         |
 | --without-constructor | Ignore method constructors from detection.         |
 | --sort-by-weight      | Sort the results by the weight of methods.         |
@@ -44,7 +46,7 @@ vendor/bin/phpargsdetector inspect app/Services/Saml/
 Total of methods : 10
 ```
 ```
-vendor/bin/phpargsdetector inspect app/ --limit=3 --min=2 --without-constructor
+vendor/bin/phpargsdetector inspect app/ --limit=3 --min-args=2 --without-constructor
 
 +-------------------------------------------------+---------+-----------+--------+
 | Files                                           | Methods | Arguments | Weight |
