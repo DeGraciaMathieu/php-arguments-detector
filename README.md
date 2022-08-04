@@ -27,32 +27,44 @@ vendor/bin/phpargsdetector inspect {folder} {--min=} {--max=} {--limit=} {--with
 ```
 vendor/bin/phpargsdetector inspect app/Services/Saml/
 
-+------------------------------------------+------------------+-----------+
-| Files                                    | Methods          | Arguments |
-+------------------------------------------+------------------+-----------+
-| app/Services/Saml/SamlMessageFactory.php | __construct      | 2         |
-| app/Services/Saml/SamlMessageFactory.php | makeSamlResponse | 2         |
-| app/Services/Saml/SamlSecurity.php       | checkSignature   | 2         |
-| app/Services/Saml/SamlIssuer.php         | find             | 1         |
-| app/Services/Saml/SamlKeeper.php         | keep             | 1         |
-| app/Services/Saml/SamlMessageFactory.php | addAttributes    | 1         |
-| app/Services/Saml/SamlMessageFactory.php | sign             | 1         |
-| app/Services/Saml/SamlResponder.php      | launch           | 1         |
-| app/Services/Saml/SamlKeeper.php         | has              | 0         |
-| app/Services/Saml/SamlKeeper.php         | retrieve         | 0         |
-+------------------------------------------+------------------+-----------+
++------------------------------------------+------------------+-----------+--------+
+| Files                                    | Methods          | Arguments | Weight |
++------------------------------------------+------------------+-----------+--------+
+| app/Services/Saml/SamlMessageFactory.php | __construct      | 2         | 2      |
+| app/Services/Saml/SamlMessageFactory.php | makeSamlResponse | 2         | 68     |
+| app/Services/Saml/SamlSecurity.php       | checkSignature   | 2         | 18     |
+| app/Services/Saml/SamlIssuer.php         | find             | 1         | 3      |
+| app/Services/Saml/SamlKeeper.php         | keep             | 1         | 1      |
+| app/Services/Saml/SamlMessageFactory.php | addAttributes    | 1         | 26     |
+| app/Services/Saml/SamlMessageFactory.php | sign             | 1         | 12     |
+| app/Services/Saml/SamlResponder.php      | launch           | 1         | 10     |
+| app/Services/Saml/SamlKeeper.php         | has              | 0         | 0      |
+| app/Services/Saml/SamlKeeper.php         | retrieve         | 0         | 0      |
++------------------------------------------+------------------+-----------+--------+
 Total of methods : 10
 ```
 ```
 vendor/bin/phpargsdetector inspect app/ --limit=3 --min=2 --without-constructor
 
-+-------------------------------------------------+--------------------+-----------+
-| Files                                           | Methods            | Arguments |
-+-------------------------------------------------+--------------------+-----------+
-| app/Http/Controllers/IssuerController.php       | update             | 5         |
-| app/Http/Controllers/RestrictionController.php  | update             | 4         |
-| app/Http/Controllers/SamlController.php         | launchSamlResponse | 2         |
-+-------------------------------------------------+--------------------+-----------+
++-------------------------------------------------+---------+-----------+--------+
+| Files                                           | Methods | Arguments | Weight |
++-------------------------------------------------+---------+-----------+--------+
+| app/Http/Middleware/RedirectIfAuthenticated.php | handle  | 3         | 27     |
+| app/Http/Controllers/IssuerController.php       | update  | 2         | 24     |
+| app/Http/Controllers/RestrictionController.php  | update  | 2         | 28     |
++-------------------------------------------------+---------+-----------+--------+
+Total of methods : 3
+```
+```
+vendor/bin/phpargsdetector inspect app/ --limit=3 --sort-by-weight
+
++-------------------------------------------------+------------------+-----------+--------+
+| Files                                           | Methods          | Arguments | Weight |
++-------------------------------------------------+------------------+-----------+--------+
+| app/Services/Saml/SamlMessageFactory.php        | makeSamlResponse | 2         | 68     |
+| app/Http/Controllers/RestrictionController.php  | update           | 2         | 28     |
+| app/Http/Middleware/RedirectIfAuthenticated.php | handle           | 3         | 27     |
++-------------------------------------------------+------------------+-----------+--------+
 Total of methods : 3
 ```
 ## Weight
