@@ -41,7 +41,9 @@ class Method
 
     public function getWeight(): int
     {
-        return $this->getLine() * $this->countArguments();
+        return $this->getLine() * $this->countArguments() > 0
+            ? $this->getLine() * $this->countArguments()
+            : 0;
     }
 
     public function isConstructor(): bool
